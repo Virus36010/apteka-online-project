@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>АптекаОнлайн/ТехПоддержка</title>
+  <link rel="stylesheet" type="text/css" href="help-chat.css">
+</head>
+<body>
+  <header>
+    <div class="titlediv"><p class="title">ТехПоддержка</p></div>
+    <p class="headerButton" id="HomeButton">Главная</p>
+    <p class="headerButton" id="headerButton2">Кнопка2</p>
+    <p class="headerButton" id="headerButton3">Кнопка3</p>
+    <p class="headerButton" id="headerButton4">Кнопка4</p>
+  </header>
+  <content>
+    <div class="info">
+      for info idk
+    </div>
+    <div class="outchat">
+      <div class="chat" id="chat-all-message">
+
+      </div>
+      <input type="text" placeholder="write your message here" id="chat-new-message" class="newmassage">
+    </div>
+  </content> 
+  <script src="help-chat.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+      let socket = io.connect();
+      let $form = $("#messForm");
+      let $name = $("#name")
+      let $textarea = $("#message")
+      let $all_message = $("#all_mess")
+      
+      $form.submit(function(event){
+        event.preventDefault();
+        socket.emit('send mess',{mess:$textarea.val(), name:$name.val()})
+        $textarea.val('');
+
+      })
+
+      socket.on('add mess', function(data){
+        $all_message.append("<div><b>" + data.name +"</b>: " + data.mess + "</div>")
+      })
+    })
+</script>
+</body>
+</html>
