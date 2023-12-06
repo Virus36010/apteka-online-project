@@ -10,7 +10,8 @@
   <header>
     <div class="titlediv"><p class="title">ТехПоддержка</p></div>
     <p class="headerButton" id="HomeButton">Главная</p>
-    <p class="headerButton" id="headerButton2">Кнопка2</p>
+    <p class="headerButton" id="profile">Профиль</p>
+    
     <p class="headerButton" id="headerButton3">Кнопка3</p>
     <p class="headerButton" id="headerButton4">Кнопка4</p>
   </header>
@@ -19,10 +20,18 @@
       for info idk
     </div>
     <div class="outchat">
-      <div class="chat" id="chat-all-message">
+      <div class="chat" id="chat-all-messages">
 
       </div>
-      <input type="text" placeholder="write your message here" id="chat-new-message" class="newmassage">
+      <form id="messageForm" class="messageForm">
+        <label for="name">Имя</label><br>
+        <input type="text" name="name" id="name" placeholder="Введите имя" class="form-control">
+        <br>
+        <label for="message">Сообщение</label><br>
+        <textarea type="text" placeholder="Введите сообщение" id="textarea-message" class="newmassage"></textarea>
+
+        <input type="submit" value="Отправить" class="sendMessage">
+      </form>
     </div>
   </content> 
   <script src="help-chat.js"></script>
@@ -31,10 +40,10 @@
   <script>
     $(function(){
       let socket = io.connect();
-      let $form = $("#messForm");
+      let $form = $("#messageForm");
       let $name = $("#name")
-      let $textarea = $("#message")
-      let $all_message = $("#all_mess")
+      let $textarea = $("#textarea-message")
+      let $all_message = $("#chat-all-messages")
       
       $form.submit(function(event){
         event.preventDefault();
