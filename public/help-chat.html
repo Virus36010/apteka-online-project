@@ -8,16 +8,24 @@
 </head>
 <body>
   <header>
-    <div class="titlediv"><p class="title">ТехПоддержка</p></div>
-    <p class="headerButton" id="HomeButton">Главная</p>
+    <div class="title"><p class="title">АптекаОнлайн</p></div>
     <p class="headerButton" id="profile">Профиль</p>
     
+    <p class="headerButton" id="headerButton2">Кнопка2</p>
     <p class="headerButton" id="headerButton3">Кнопка3</p>
-    <p class="headerButton" id="headerButton4">Кнопка4</p>
   </header>
   <content>
     <div class="info">
-      for info idk
+      <p>ТехПоддержка</p>
+      <p>Здесь вы можете задавать вопросы в наш чат. Если сотрудник не будет в сети, вам ответит чат-бот.</p>
+      <p>Часто задаваемые вопросы:</p>
+      <div class="quisteonPad">
+        <p class="quisteon">Вопрос1</p>
+        <p class="quisteon">Вопрос2</p>
+        <p class="quisteon">Вопрос3</p>
+        <p class="quisteon">Вопрос4</p>
+        <p class="quisteon">Вопрос5</p>
+      </div>
     </div>
     <div class="outchat">
       <div class="chat" id="chat-all-messages">
@@ -28,7 +36,7 @@
         <input type="text" name="name" id="name" placeholder="Введите имя" class="form-control">
         <br>
         <label for="message">Сообщение</label><br>
-        <textarea type="text" placeholder="Введите сообщение" id="textarea-message" class="newmassage"></textarea>
+        <textarea type="text" placeholder="Введите сообщение" id="textarea-message" class="newmessage"></textarea>
 
         <input type="submit" value="Отправить" class="sendMessage">
       </form>
@@ -46,6 +54,8 @@
       let $all_message = $("#chat-all-messages")
       
       $form.submit(function(event){
+        //if ($name.value == ""){break}
+        //if ($textarea.value == ""){break}
         event.preventDefault();
         socket.emit('send mess',{mess:$textarea.val(), name:$name.val()})
         $textarea.val('');

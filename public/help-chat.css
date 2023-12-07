@@ -27,7 +27,7 @@ content{
 
   display: inline;
 }
-.titlediv{
+div.title{
   background-color: rgb(98, 157, 212);
 
   width: 10vw;
@@ -39,16 +39,47 @@ content{
 
   margin-top: auto;
 }
-.title{
+p.title{
   font-size: 3vh;
   font-weight: bold;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.title:hover{
+  cursor: pointer;
+}
 .headerButton{
-
+  width: 4vw;
+  height: 4vh;
+  margin-left: 2vw;
+  text-decoration: underline;
+}
+.headerButton:hover{
+  color: brown;
+  cursor: pointer;
 }
 .info{
+  width: 20vw;
+  height: 30vh;
+  position: fixed;
+  top: 20vh;
+  left: 5vw;
 
+  background-color: white;
+  border-radius: 2vh;
+  border-color: rgb(218, 218, 218);
+  border-width: 1vh;
+  border-style:solid;
+  padding: 1vh;
+}
+.quisteonPad{
+  display: flex;
+  text-align: center;
+  padding: 0.5vh 0 0 0.3vw;
+}
+.quisteon{
+  width: 4vw;
+  height: 1vh;
+  margin-left: 0.2vw;
 }
 
 .outchat{
@@ -62,11 +93,13 @@ content{
   border-radius: 2vh;
 }
 .chat{
-  width: 29vw;
-  height: 59vh;
+  width: 28.5vw;
+  height: 58.5vh;
   position: fixed;
-  top: 12.5vh;
+  top: 13vh;
   left: 35.5vw;
+
+  padding: 0.5vh 0.5vh 0.5vh 0.5vh;
 
   background-color: white;
   border-radius: 2vh;
@@ -79,4 +112,11 @@ content{
   position: fixed;
   top: 72.5vh;
   left: 35.5vw;
+}
+.newmessage{
+  width: 29vw;
+  height: 9vh;
+  overflow: auto;
+  max-width: 29vw;
+  max-height: 9vh;
 }
