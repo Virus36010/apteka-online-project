@@ -9,7 +9,9 @@ let host = 5656
 server.listen(host)
 console.log('Server started! Host: ' + host)
 
-let users = []
+let users = [
+  {username:"", password:"", admin:false}
+]
 let connections = []
 
 app.use(express.static("public"))
@@ -30,5 +32,13 @@ io.sockets.on('connection', function(socket){
 
   socket.on('send mess', function(data){
     io.sockets.emit('add mess', {mess: data.mess, name:data.name})
+  })
+  
+  socket.on('reg', function(data){
+    users.push({username: data.username, password:data.password, admin:true})
+  })
+
+  socket.on('sign in', function(data){
+    
   })
 })
