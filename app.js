@@ -10,7 +10,7 @@ server.listen(host)
 console.log('Server started! Host: ' + host)
 
 let users = [
-  {username:"", password:"", admin:false}
+  {username:"test1", password:"test1", admin:false}
 ]
 let connections = []
 
@@ -31,14 +31,21 @@ io.sockets.on('connection', function(socket){
   })
 
   socket.on('send mess', function(data){
-    io.sockets.emit('add mess', {mess: data.mess, name:data.name})
+    io.sockets.emit('add mess', {mess: data.mess, name: data.name})
   })
   
   socket.on('reg', function(data){
-    users.push({username: data.username, password:data.password, admin:true})
+    users.push({username: data.username, password: data.password, admin:false})
   })
 
   socket.on('sign in', function(data){
-    
+    for (let i = 0; i<1; i++){
+      if(users[i].username == data.username){
+        if(users[i].password == data.password){
+          io.sockets.emit("signed in", {username: data.username})
+          break
+        }
+      }
+    }
   })
 })

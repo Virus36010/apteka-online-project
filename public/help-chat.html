@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>АптекаОнлайн/ТехПоддержка</title>
+  <title>АптеКа/ТехПоддержка</title>
   <link rel="stylesheet" type="text/css" href="help-chat.css">
 </head>
 <body>
   <header>
-    <div class="title" id="homeBTN"><p class="title">АптекаОнлайн</p></div>
+    <div class="title" id="homeBTN"><p class="title">АптеКа</p></div>
 
     <p class="headerButton" id="profileBTN">Профиль</p>
-    <p class="headerButton" id="headerButton2">Кнопка2</p>
-    <p class="headerButton" id="headerButton3">Кнопка3</p>
+    <p class="headerButton" id="aboutBTN">Про нас</p>
+    <p class="headerButton" id="pocketBTN">Корзина</p>
   </header>
 
   <content>
@@ -27,6 +27,7 @@
         <p class="quisteon">Вопрос4</p>
         <p class="quisteon">Вопрос5</p>
       </div>
+      <p>*На данный момент эта функция не доступна</p>
     </div>
     <div class="outchat">
       <div class="chat" id="chat-all-messages">
@@ -44,39 +45,50 @@
     </div>
   </content>
 
-  <div class="profile-modal">
+  <div class="profile-modal" id="profile-modal">
     <div class="profile-content">
-      <span class="close-profile">&times;</span>
+      <span class="close-profile" id="close-profile">&times;</span>
 
       <h2>Профиль</h2> <br>
-      <p id="profile-name"></p>
+      <p>Вы не вошли в аккаунт</p>
+      <div id="profile-name"></div>
 
-      <button id="regBTN"></button>
-      <button id="signinBTN"></button>
+      <button id="regBTN">Зарегестрироваться</button>
+      <button id="signinBTN">Войти</button>
+      
+      <p>*На данный момент функция регистрации не доступна</p>
   </div>
   </div>
-  <div class="reg-modal">
-    <div class="regContent">
-      <span class="closeReg">&times;</span>
+  <div class="reg-modal" id="reg-modal">
+    <div class="reg-content">
+      <span class="close-reg" id="close-reg">&times;</span>
 
       <h2>Регистрация</h2>
 
-      <input id="reg-name" type="text" placeholder="Введите имя">
-      <input id="reg-password" type="password" placeholder="Введите пароль">
+      <form id="reg-form">
+        <input id="reg-name" type="text" placeholder="Введите имя"> <br>
+        <input id="reg-password" type="password" placeholder="Введите пароль"> <br>
 
-      <button id="finishReg">Зарегестрироваться</button>
+        <input id="finish-reg" type="submit" value="Зарегестрироваться">
+      </form>
+
+      <p>*На данный момент функция регистрации не доступна</p>
   </div>
   </div>
-  <div class="signin-modal">
-    <div class="signinContent">
-      <span class="closesignin">&times;</span>
+  <div class="signin-modal" id="signin-modal">
+    <div class="signin-content">
+      <span class="close-signin" id="close-signin">&times;</span>
 
       <h2>Войти</h2>
 
-      <input id="name-signin" type="text" placeholder="Введите имя"> <br>
-      <input id="password-signin" type="password" placeholder="Введите пароль">
+      <form id="signin-form">
+        <input id="name-signin" type="text" placeholder="Введите имя"> <br>
+        <input id="password-signin" type="password" placeholder="Введите пароль"> <br>
 
-      <button id="finish-signin">Войти</button>
+        <input id="finish-signin" type="submit" value="Войти">
+      </form><br>
+
+      <p>*На данный момент функция регистрации не доступна</p>
   </div>
   </div>
 
@@ -92,8 +104,6 @@
       let $all_message = $("#chat-all-messages")
       
       $form.submit(function(event){
-        //if ($name.value == ""){break}
-        //if ($textarea.value == ""){break}
         event.preventDefault();
         socket.emit('send mess',{mess:$textarea.val(), name:$name.val()})
         $textarea.val('');
@@ -101,6 +111,32 @@
 
       socket.on('add mess', function(data){
         $all_message.append("<div><b>" + data.name +"</b>: " + data.mess + "</div>")
+      })
+      
+      let $reg_form = $("#reg-form")
+      let $reg_name = $("#reg-name")
+      let $reg_password = $("#reg-password")
+      $reg_form.submit(function(event){
+        if($reg_name!="" && $reg_password!=""){
+          socket.emit("reg", {username: $reg_name, password: $reg_password})
+          alert("youre regged")
+        }
+      })
+
+      let $signin_form = $("#signin-form")
+      let $signin_name = $("#name-signin")
+      let $signin_password = $("#password-signin")
+      $signin_form.submit(function(event){
+        if($signin_name!="" && $signin_password!=""){
+          socket.emit("sign in", {username: $signin_name, password: $signin_password})
+        }
+      })
+
+      let $signin_modal = $("signin-modal")
+      socket.on("signed in", function(data){
+        $name = data.username
+        $signin_modal.style.display = "none"
+        alert("youre signed in!")
       })
     })
 </script>
